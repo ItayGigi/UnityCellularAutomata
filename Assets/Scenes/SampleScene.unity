@@ -136,12 +136,12 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Game Of Life
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &519420029
 AudioListener:
   m_ObjectHideFlags: 0
@@ -231,7 +231,7 @@ MonoBehaviour:
   _automatonShader: {fileID: 7200000, guid: 7dabd18777735ab498edd79306711a52, type: 3}
   _initShader: {fileID: 7200000, guid: 5bdef5dfbcfb0b24ab08746f90a5f30e, type: 3}
   _drawMat: {fileID: 2100000, guid: 1c124088b4e3b1b4c9518e3081ebb526, type: 2}
-  _resolution: 100
+  _resolution: 104
   _targetFrameRate: 20
   _stateColors:
   - {r: 0.5188679, g: 0.30903164, b: 0, a: 1}
@@ -255,8 +255,320 @@ MonoBehaviour:
     maxSum: 8
     sumState: 1
     neighborhoodType: 0
+--- !u!1 &1573814838
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1573814843}
+  - component: {fileID: 1573814842}
+  - component: {fileID: 1573814841}
+  - component: {fileID: 1573814839}
+  m_Layer: 0
+  m_Name: Rock Paper Scissors Lizard Spock
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1573814839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573814838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dca65dd3708a30945b186319042de1d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _automatonShader: {fileID: 7200000, guid: 7dabd18777735ab498edd79306711a52, type: 3}
+  _initShader: {fileID: 7200000, guid: 5bdef5dfbcfb0b24ab08746f90a5f30e, type: 3}
+  _drawMat: {fileID: 2100000, guid: 1c124088b4e3b1b4c9518e3081ebb526, type: 2}
+  _resolution: 104
+  _targetFrameRate: 20
+  _stateColors:
+  - {r: 0.21305178, g: 0.6603774, b: 0.18378428, a: 1}
+  - {r: 1, g: 0.69612426, b: 0, a: 1}
+  - {r: 0.81960785, g: 0.15294115, b: 0.32098588, a: 1}
+  - {r: 0.23082057, g: 0.66448337, b: 0.8584906, a: 1}
+  - {r: 0.610765, g: 0.24719654, b: 0.9528302, a: 1}
+  _rules:
+  - startingState: 1
+    endingState: 4
+    minSum: 3
+    maxSum: 8
+    sumState: 4
+    neighborhoodType: 0
+  - startingState: 2
+    endingState: 4
+    minSum: 3
+    maxSum: 8
+    sumState: 4
+    neighborhoodType: 0
+  - startingState: 2
+    endingState: 1
+    minSum: 3
+    maxSum: 8
+    sumState: 1
+    neighborhoodType: 0
+  - startingState: 0
+    endingState: 1
+    minSum: 3
+    maxSum: 8
+    sumState: 1
+    neighborhoodType: 0
+  - startingState: 0
+    endingState: 2
+    minSum: 3
+    maxSum: 8
+    sumState: 2
+    neighborhoodType: 0
+  - startingState: 3
+    endingState: 2
+    minSum: 3
+    maxSum: 8
+    sumState: 2
+    neighborhoodType: 0
+  - startingState: 3
+    endingState: 0
+    minSum: 3
+    maxSum: 8
+    sumState: 0
+    neighborhoodType: 0
+  - startingState: 4
+    endingState: 0
+    minSum: 3
+    maxSum: 8
+    sumState: 0
+    neighborhoodType: 0
+  - startingState: 4
+    endingState: 3
+    minSum: 3
+    maxSum: 8
+    sumState: 3
+    neighborhoodType: 0
+  - startingState: 1
+    endingState: 3
+    minSum: 3
+    maxSum: 8
+    sumState: 3
+    neighborhoodType: 0
+--- !u!81 &1573814841
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573814838}
+  m_Enabled: 1
+--- !u!20 &1573814842
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573814838}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 1
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 0
+  m_HDR: 1
+  m_AllowMSAA: 0
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 0
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &1573814843
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573814838}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1649968336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1649968340}
+  - component: {fileID: 1649968339}
+  - component: {fileID: 1649968338}
+  - component: {fileID: 1649968337}
+  m_Layer: 0
+  m_Name: Rock Paper Scissors
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1649968337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649968336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dca65dd3708a30945b186319042de1d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _automatonShader: {fileID: 7200000, guid: 7dabd18777735ab498edd79306711a52, type: 3}
+  _initShader: {fileID: 7200000, guid: 5bdef5dfbcfb0b24ab08746f90a5f30e, type: 3}
+  _drawMat: {fileID: 2100000, guid: 1c124088b4e3b1b4c9518e3081ebb526, type: 2}
+  _resolution: 104
+  _targetFrameRate: 20
+  _stateColors:
+  - {r: 0.21305178, g: 0.6603774, b: 0.18378428, a: 1}
+  - {r: 1, g: 0.69612426, b: 0, a: 1}
+  - {r: 0.8207547, g: 0.19154197, b: 0.15098791, a: 1}
+  _rules:
+  - startingState: 0
+    endingState: 1
+    minSum: 3
+    maxSum: 8
+    sumState: 1
+    neighborhoodType: 0
+  - startingState: 1
+    endingState: 2
+    minSum: 3
+    maxSum: 8
+    sumState: 2
+    neighborhoodType: 0
+  - startingState: 2
+    endingState: 0
+    minSum: 3
+    maxSum: 8
+    sumState: 0
+    neighborhoodType: 0
+--- !u!81 &1649968338
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649968336}
+  m_Enabled: 1
+--- !u!20 &1649968339
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649968336}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 1
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 0
+  m_HDR: 1
+  m_AllowMSAA: 0
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 0
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &1649968340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649968336}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
+  - {fileID: 1649968340}
+  - {fileID: 1573814843}

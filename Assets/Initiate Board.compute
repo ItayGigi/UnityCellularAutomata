@@ -5,6 +5,7 @@
 // with cs.SetTexture
 RWTexture2D<int> Result;
 int resolution;
+int stateAmount;
 
 // pseudorandom function from the internet
 float random(float2 uv)
@@ -16,5 +17,5 @@ float random(float2 uv)
 void CSMain (uint3 id : SV_DispatchThreadID)
 {
     // fill the board randomly
-    Result[id.xy] = (random(id.xy) < 0.5);
+    Result[id.xy] = floor(random(id.xy / (float)resolution) * stateAmount);
 }

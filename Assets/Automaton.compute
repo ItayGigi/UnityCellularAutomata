@@ -25,16 +25,46 @@ int getCell(int x, int y)
     return Board[int2(x, y)];
 }
 
-int countNeighborsOfState(int state, int2 pos)
+int getNeighborhoodSize(int type)
 {
-    return (getCell(pos.x + 1, pos.y) == state) +
-           (getCell(pos.x + 1, pos.y + 1) == state) +
-           (getCell(pos.x + 1, pos.y - 1) == state) +
-           (getCell(pos.x, pos.y + 1) == state) +
-           (getCell(pos.x, pos.y - 1) == state) +
-           (getCell(pos.x - 1, pos.y + 1) == state) +
-           (getCell(pos.x - 1, pos.y) == state) +
-           (getCell(pos.x - 1, pos.y - 1) == state);
+    return (type) ? 4 : 8;
+}
+
+int2 getNeighborhoodOffset(int i, int type)
+{
+    int2 mooreNeighborhood[8] =
+    {
+        int2(1, 1),
+        int2(1, 0),
+        int2(1, -1),
+        int2(0, 1),
+        int2(0, -1),
+        int2(-1, 1),
+        int2(-1, 0),
+        int2(-1, -1)
+    };
+
+    int2 vonNeumannNeighborhood[4] =
+    {
+        int2(0, 1),
+        int2(0, -1),
+        int2(1, 0),
+        int2(-1, 0),
+    };
+    
+    return (type) ? vonNeumannNeighborhood[i] : mooreNeighborhood[i];
+}
+
+int countNeighborsOfState(int state, int2 pos, int neighborhoodType = 0)
+{
+    int sum = 0;
+    for (int i = 0; i < getNeighborhoodSize(neighborhoodType); i++)
+    {
+        int2 offset = 0;
+        offset = getNeighborhoodOffset(i, neighborhoodType);
+        sum += (getCell(pos.x + offset.x, pos.y + offset.y) == state);
+    }
+    return sum;
 }
 
 [numthreads(8, 8, 1)]
@@ -48,7 +78,7 @@ void CSMain(uint3 id : SV_DispatchThreadID)
     {
         if (rules[i].startingState == state)
         {
-            int sum = countNeighborsOfState(rules[i].sumState, id.xy);
+            int sum = countNeighborsOfState(rules[i].sumState, id.xy, rules[i].neighborhoodType);
             if (sum >= rules[i].minSum && sum <= rules[i].maxSum)
                 Result[id.xy] = rules[i].endingState;
         }

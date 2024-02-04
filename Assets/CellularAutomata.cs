@@ -8,8 +8,8 @@ using UnityEngine.UIElements;
 
 public enum NeighborhoodType
 {
-    Moore,
-    vonNeumann
+    Moore = 0,
+    vonNeumann = 1,
 }
 
 [Serializable]

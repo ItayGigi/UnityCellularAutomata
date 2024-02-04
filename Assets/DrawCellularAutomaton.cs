@@ -103,6 +103,7 @@ public class DrawCellularAutomaton : MonoBehaviour
         {
             _initShader.SetTexture(0, "Result", _currTex);
             _initShader.SetInt("resolution", _resolution);
+            _initShader.SetInt("stateAmount", _stateColors.Length);
             _initShader.Dispatch(0, _currTex.width / 8, _currTex.height / 8, 1);
         }
 
