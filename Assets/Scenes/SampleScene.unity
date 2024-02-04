@@ -233,12 +233,10 @@ MonoBehaviour:
   _drawMat: {fileID: 2100000, guid: 1c124088b4e3b1b4c9518e3081ebb526, type: 2}
   _resolution: 100
   _targetFrameRate: 20
-  states:
-  - id: 0
-    color: {r: 0.5, g: 0.26047257, b: 0.016509444, a: 1}
-  - id: 1
-    color: {r: 1, g: 0.69854593, b: 0.3915094, a: 1}
-  rules:
+  _stateColors:
+  - {r: 0.5188679, g: 0.30903164, b: 0, a: 1}
+  - {r: 1, g: 0.78504544, b: 0.4669811, a: 1}
+  _rules:
   - startingState: 0
     endingState: 1
     minSum: 3

@@ -35,6 +35,7 @@ Shader "Unlit/DrawBoard"
             float4 _MainTex_ST;
             //SamplerState sampler_MainTex;
             uniform float4 _MainTex_TexelSize;
+            Buffer<float4> _stateColors;
 
             v2f vert (appdata v)
             {
@@ -47,7 +48,8 @@ Shader "Unlit/DrawBoard"
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the int texture using Load
-                int col = _MainTex.Load(int3(i.uv/_MainTex_TexelSize.xy, 0));
+                int state = _MainTex.Load(int3(i.uv/_MainTex_TexelSize.xy, 0));
+                float4 col = _stateColors[state];
                 return col;
             }
             ENDCG

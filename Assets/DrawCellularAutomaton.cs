@@ -20,14 +20,15 @@ public class DrawCellularAutomaton : MonoBehaviour
     int _targetFrameRate = 20;
 
     [SerializeField]
-    StateColor[] states;
+    Color[] _stateColors;
     [SerializeField]
-    CellRule[] rules;
+    CellRule[] _rules;
 
     float _aspectRatio;
     RenderTexture _prevTex = null;
     RenderTexture _currTex = null;
-    ComputeBuffer _computeBuffer;
+    ComputeBuffer _rulesBuffer;
+    ComputeBuffer _colorsBuffer;
 
 
     private void Awake()
@@ -39,10 +40,19 @@ public class DrawCellularAutomaton : MonoBehaviour
 
     private void Start()
     {
-        _computeBuffer = new ComputeBuffer(rules.Length, sizeof(int)*6, ComputeBufferType.Constant | ComputeBufferType.Structured);
+        _rulesBuffer = new ComputeBuffer(_rules.Length, sizeof(int)*6, ComputeBufferType.Structured);
+        _rulesBuffer.SetData(_rules);
+        _automatonShader.SetBuffer(0, "rules", _rulesBuffer);
 
-        _computeBuffer.SetData(rules);
-        _automatonShader.SetBuffer(0, "rules", _computeBuffer);
+        _colorsBuffer = new ComputeBuffer(_stateColors.Length, sizeof(float)*4);
+
+        Color[] linearColors = new Color[_stateColors.Length];
+        for (int i = 0; i < _stateColors.Length; i++)
+        {
+            linearColors[i] = _stateColors[i].linear;
+        }
+        _colorsBuffer.SetData(linearColors);
+        _drawMat.SetBuffer("_stateColors", _colorsBuffer);
     }
 
     private void Update()
@@ -70,7 +80,8 @@ public class DrawCellularAutomaton : MonoBehaviour
             RenderTexture.ReleaseTemporary(_currTex);
         _currTex = null;
 
-        _computeBuffer?.Dispose();
+        _rulesBuffer?.Dispose();
+        _colorsBuffer?.Dispose();
     }
 
     void UpdateTextures()
@@ -100,11 +111,6 @@ public class DrawCellularAutomaton : MonoBehaviour
 
     public Color getStateColor(int id)
     {
-        foreach (StateColor state in states)
-        {
-            if (state.id == id)
-                return state.color;
-        }
-        return Color.black;
+        return (id >= 0 && id < _stateColors.Length)? _stateColors[id] : Color.black;
     }
 }
