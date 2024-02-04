@@ -31,8 +31,9 @@ Shader "Unlit/DrawBoard"
                 float4 vertex : SV_POSITION;
             };
 
-            Texture2D _MainTex;
+            Texture2D<int> _MainTex;
             float4 _MainTex_ST;
+            //SamplerState sampler_MainTex;
             uniform float4 _MainTex_TexelSize;
 
             v2f vert (appdata v)
@@ -45,8 +46,8 @@ Shader "Unlit/DrawBoard"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // sample the texture
-                int col = _MainTex.Load(int3((int)(i.uv.x/_MainTex_TexelSize), (int)(i.uv.y/_MainTex_TexelSize), 0));
+                // sample the int texture using Load
+                int col = _MainTex.Load(int3(i.uv/_MainTex_TexelSize.xy, 0));
                 return col;
             }
             ENDCG

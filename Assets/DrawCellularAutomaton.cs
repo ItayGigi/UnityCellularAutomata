@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class DrawCellularAutomaton : MonoBehaviour
 {
@@ -11,9 +12,9 @@ public class DrawCellularAutomaton : MonoBehaviour
     [SerializeField]
     ComputeShader _initShader;
     [SerializeField]
-    ComputeShader _drawShader;
-    [SerializeField]
     Material _drawMat;
+    [Range(5, 500), SerializeField]
+    int _targetFrameRate = 20;
 
     float _aspectRatio;
     RenderTexture _prevTex = null;
@@ -22,23 +23,22 @@ public class DrawCellularAutomaton : MonoBehaviour
     private void Awake()
     {
         _aspectRatio = (float)Screen.width / Screen.height;
+
+        QualitySettings.vSyncCount = 0; // for framerate controlling
+    }
+
+    private void Update()
+    {
+        // update framerate
+        Application.targetFrameRate = _targetFrameRate;
     }
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
         UpdateTextures();
-        _currTex.filterMode = FilterMode.Point;
-
-        //RenderTexture texture = new RenderTexture(source);
-        //texture.enableRandomWrite = true;
-        //_drawShader.SetTexture(0, "Result", texture);
-        //_drawShader.SetTexture(0, "Board", _currTex);
-        //_drawShader.Dispatch(0, texture.width / 8, texture.height / 8, 1);
 
         // Render to screen
-        Graphics.Blit(_currTex, destination, _drawMat);
-
-        //texture.Release();
+        Graphics.Blit(_prevTex, destination, _drawMat);
     }
 
     private void OnDisable()
@@ -55,16 +55,20 @@ public class DrawCellularAutomaton : MonoBehaviour
 
     void UpdateTextures()
     {
+        // create new temporary texture
         _currTex = RenderTexture.GetTemporary((int)(_resolution * _aspectRatio), _resolution, 0, RenderTextureFormat.RInt);
         _currTex.enableRandomWrite = true;
 
-        if (_prevTex)
+        if (_prevTex) // update the board
         {
-            Graphics.Blit(_prevTex, _currTex);
+            _automatonShader.SetTexture(0, "Board", _prevTex);
+            _automatonShader.SetTexture(0, "Result", _currTex);
+            _automatonShader.SetInt("resolution", _resolution);
+            _automatonShader.Dispatch(0, _currTex.width / 8, _currTex.height / 8, 1);
 
-            RenderTexture.ReleaseTemporary(_prevTex);
+            RenderTexture.ReleaseTemporary(_prevTex); // release last frame's texture
         }
-        else
+        else // first frame, initialize board
         {
             _initShader.SetTexture(0, "Result", _currTex);
             _initShader.SetInt("resolution", _resolution);
