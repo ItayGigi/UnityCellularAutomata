@@ -228,11 +228,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dca65dd3708a30945b186319042de1d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resolution: 100
   _automatonShader: {fileID: 7200000, guid: 7dabd18777735ab498edd79306711a52, type: 3}
   _initShader: {fileID: 7200000, guid: 5bdef5dfbcfb0b24ab08746f90a5f30e, type: 3}
   _drawMat: {fileID: 2100000, guid: 1c124088b4e3b1b4c9518e3081ebb526, type: 2}
+  _resolution: 100
   _targetFrameRate: 20
+  states:
+  - id: 0
+    color: {r: 0.5, g: 0.26047257, b: 0.016509444, a: 1}
+  - id: 1
+    color: {r: 1, g: 0.69854593, b: 0.3915094, a: 1}
+  rules:
+  - startingState: 0
+    endingState: 1
+    minSum: 3
+    maxSum: 3
+    sumState: 1
+    neighborhoodType: 0
+  - startingState: 1
+    endingState: 0
+    minSum: 0
+    maxSum: 1
+    sumState: 1
+    neighborhoodType: 0
+  - startingState: 1
+    endingState: 0
+    minSum: 4
+    maxSum: 8
+    sumState: 1
+    neighborhoodType: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

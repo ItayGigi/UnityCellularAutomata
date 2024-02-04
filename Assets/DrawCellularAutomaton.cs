@@ -1,30 +1,48 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class DrawCellularAutomaton : MonoBehaviour
 {
-    [SerializeField]
-    int _resolution = 100;
+    [Header("References")]
     [SerializeField]
     ComputeShader _automatonShader;
     [SerializeField]
     ComputeShader _initShader;
     [SerializeField]
     Material _drawMat;
+
+    [Header("Settings")]
+    [SerializeField]
+    int _resolution = 100;
     [Range(5, 500), SerializeField]
     int _targetFrameRate = 20;
+
+    [SerializeField]
+    StateColor[] states;
+    [SerializeField]
+    CellRule[] rules;
 
     float _aspectRatio;
     RenderTexture _prevTex = null;
     RenderTexture _currTex = null;
+    ComputeBuffer _computeBuffer;
+
 
     private void Awake()
     {
         _aspectRatio = (float)Screen.width / Screen.height;
 
         QualitySettings.vSyncCount = 0; // for framerate controlling
+    }
+
+    private void Start()
+    {
+        _computeBuffer = new ComputeBuffer(rules.Length, sizeof(int)*6, ComputeBufferType.Constant | ComputeBufferType.Structured);
+
+        _computeBuffer.SetData(rules);
+        _automatonShader.SetBuffer(0, "rules", _computeBuffer);
     }
 
     private void Update()
@@ -51,6 +69,8 @@ public class DrawCellularAutomaton : MonoBehaviour
         if (_currTex != null)
             RenderTexture.ReleaseTemporary(_currTex);
         _currTex = null;
+
+        _computeBuffer?.Dispose();
     }
 
     void UpdateTextures()
@@ -76,5 +96,15 @@ public class DrawCellularAutomaton : MonoBehaviour
         }
 
         _prevTex = _currTex;
+    }
+
+    public Color getStateColor(int id)
+    {
+        foreach (StateColor state in states)
+        {
+            if (state.id == id)
+                return state.color;
+        }
+        return Color.black;
     }
 }

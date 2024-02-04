@@ -1,27 +1,56 @@
 // Each #kernel tells which function to compile; you can have many kernels
 #pragma kernel CSMain
 
+struct rule
+{
+    int startingState;
+    int endingState;
+    int minSum;
+    int maxSum;
+    int sumState;
+    int neighborhoodType;
+};
+
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
 RWTexture2D<int> Board;
 RWTexture2D<int> Result;
+int resolution;
+StructuredBuffer<rule> rules;
 
-[numthreads(8,8,1)]
-void CSMain (uint3 id : SV_DispatchThreadID)
+int getCell(int x, int y)
 {
-    int neighborSum = Board[int2(id.x + 1, id.y)] +
-                      Board[int2(id.x + 1, id.y + 1)] +
-                      Board[int2(id.x + 1, id.y - 1)] +
-                      Board[int2(id.x, id.y + 1)] +
-                      Board[int2(id.x, id.y - 1)] +
-                      Board[int2(id.x - 1, id.y + 1)] +
-                      Board[int2(id.x - 1, id.y)] +
-                      Board[int2(id.x - 1, id.y - 1)];
+    x = (x < 0) ? resolution - (-x % resolution) : x % resolution;
+    y = (y < 0) ? resolution - (-y % resolution) : y % resolution;
+    return Board[int2(x, y)];
+}
+
+int countNeighborsOfState(int state, int2 pos)
+{
+    return (getCell(pos.x + 1, pos.y) == state) +
+           (getCell(pos.x + 1, pos.y + 1) == state) +
+           (getCell(pos.x + 1, pos.y - 1) == state) +
+           (getCell(pos.x, pos.y + 1) == state) +
+           (getCell(pos.x, pos.y - 1) == state) +
+           (getCell(pos.x - 1, pos.y + 1) == state) +
+           (getCell(pos.x - 1, pos.y) == state) +
+           (getCell(pos.x - 1, pos.y - 1) == state);
+}
+
+[numthreads(8, 8, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    int state = Result[id.xy] = Board[id.xy];
     
-    if (neighborSum == 2) // keep the same
-        Result[id.xy] = Board[id.xy];
-    else if (neighborSum == 3) // alive
-        Result[id.xy] = 1;
-    else //dead
-        Result[id.xy] = 0;
+    uint ruleCount, strideSize;
+    rules.GetDimensions(ruleCount, strideSize);
+    for (int i = 0; i < ruleCount; i++)
+    {
+        if (rules[i].startingState == state)
+        {
+            int sum = countNeighborsOfState(rules[i].sumState, id.xy);
+            if (sum >= rules[i].minSum && sum <= rules[i].maxSum)
+                Result[id.xy] = rules[i].endingState;
+        }
+    }
 }
