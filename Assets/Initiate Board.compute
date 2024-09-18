@@ -4,8 +4,8 @@
 // Create a RenderTexture with enableRandomWrite flag and set it
 // with cs.SetTexture
 RWTexture2D<int> Result;
-int resolution;
-int stateAmount;
+uint resolution;
+uint stateAmount;
 
 // pseudorandom function from the internet
 float random(float2 uv)

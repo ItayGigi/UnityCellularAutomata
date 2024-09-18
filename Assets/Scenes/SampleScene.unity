@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &519420029
 AudioListener:
   m_ObjectHideFlags: 0
@@ -231,11 +231,11 @@ MonoBehaviour:
   _automatonShader: {fileID: 7200000, guid: 7dabd18777735ab498edd79306711a52, type: 3}
   _initShader: {fileID: 7200000, guid: 5bdef5dfbcfb0b24ab08746f90a5f30e, type: 3}
   _drawMat: {fileID: 2100000, guid: 1c124088b4e3b1b4c9518e3081ebb526, type: 2}
-  _resolution: 104
+  _resolution: 512
   _targetFrameRate: 20
   _stateColors:
-  - {r: 0.5188679, g: 0.30903164, b: 0, a: 1}
-  - {r: 1, g: 0.78504544, b: 0.4669811, a: 1}
+  - {r: 0, g: 0.077423535, b: 0.1981132, a: 1}
+  - {r: 0.8820755, g: 0.92862463, b: 1, a: 1}
   _rules:
   - startingState: 0
     endingState: 1
@@ -273,7 +273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1573814839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,7 +289,7 @@ MonoBehaviour:
   _automatonShader: {fileID: 7200000, guid: 7dabd18777735ab498edd79306711a52, type: 3}
   _initShader: {fileID: 7200000, guid: 5bdef5dfbcfb0b24ab08746f90a5f30e, type: 3}
   _drawMat: {fileID: 2100000, guid: 1c124088b4e3b1b4c9518e3081ebb526, type: 2}
-  _resolution: 104
+  _resolution: 128
   _targetFrameRate: 20
   _stateColors:
   - {r: 0.21305178, g: 0.6603774, b: 0.18378428, a: 1}
@@ -466,7 +466,7 @@ MonoBehaviour:
   _automatonShader: {fileID: 7200000, guid: 7dabd18777735ab498edd79306711a52, type: 3}
   _initShader: {fileID: 7200000, guid: 5bdef5dfbcfb0b24ab08746f90a5f30e, type: 3}
   _drawMat: {fileID: 2100000, guid: 1c124088b4e3b1b4c9518e3081ebb526, type: 2}
-  _resolution: 104
+  _resolution: 800
   _targetFrameRate: 20
   _stateColors:
   - {r: 0.21305178, g: 0.6603774, b: 0.18378428, a: 1}
